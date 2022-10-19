@@ -1,35 +1,36 @@
-﻿<Application x:Class="KIT206_Week10_Sample.App"
+﻿<Application x:Class="RAP.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:KIT206_Week9"
+             xmlns:con="clr-namespace:Control"
+             xmlns:res="clr-namespace:Research"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              StartupUri="MainWindow.xaml">
-    <!-- Namespace for Boss class has not been changed after importing, hence the KIT206_Week8 above -->
+    
     <Application.Resources>
         <!-- An alternative way of providing access to a shared resource that splits declaration of the resouce
-        (a Boss object in this case) from the ObjectDataProvider that gives access to the list the Boss object manages.
-        Either approach is acceptable, but this way does make accessing the Boss object from the code-behind easier. -->
-        <local:Boss x:Key="boss"/>
-        <ObjectDataProvider x:Key="staffList"
-                            ObjectInstance="{StaticResource boss}"
+        (a ResearcherController object in this case) from the ObjectDataProvider that gives access to the list the ResearcherController object manages.
+        Either approach is acceptable, but this way does make accessing the ResearcherController object from the code-behind easier. -->
+        <con:ResearcherController x:Key="ResearcherController"/>
+        <ObjectDataProvider x:Key="researcherList"
+                            ObjectInstance="{StaticResource ResearcherController}"
                             MethodName="GetViewableList">
         </ObjectDataProvider>
 
-        <!-- The controller, or view model, for Employee objects. This is the approach suggested in the
-        slides and tutorial, and will result in the instantiation of a Boss object behind the scenes. -->
+        <!-- The controller, or view model, for Researcher objects. This is the approach suggested in the
+        slides and tutorial, and will result in the instantiation of a ResearcherController object behind the scenes. -->
         <!--
-        <ObjectDataProvider x:Key="staffList"
-                            ObjectType="{x:Type local:Boss}"
+        <ObjectDataProvider x:Key="researcherList"
+                            ObjectType="{x:Type local:ResearcherController}"
                             MethodName="GetViewableList">
         </ObjectDataProvider>
         -->
-        <!-- Example resource that allows binding to an Enum type, in this case Gender from the KIT206_Week8 namespace-->
+        <!-- Example resource that allows binding to an Enum type, in this case EmploymentLevel from the KIT206_Week8 namespace-->
         <!-- This is used in the ExampleUserControl -->
-        <ObjectDataProvider x:Key="genderValues"
+        <ObjectDataProvider x:Key="employmentLevelValues"
                             ObjectType="{x:Type sys:Enum}"
                             MethodName="GetValues">
             <ObjectDataProvider.MethodParameters>
-                <x:Type TypeName="local:Gender"/>
+                <x:Type TypeName="res:EmploymentLevel"/>
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
     </Application.Resources>

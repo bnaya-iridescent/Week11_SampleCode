@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace KIT206_Week9
+namespace Research
 {
     public class Publication
     {
@@ -16,7 +12,7 @@ namespace KIT206_Week9
         public string citeAs { get; set; }
         public DateTime available { get; set; }
 
-        public Employee researcher { get; set; }
+        public Researcher researcher { get; set; }
 
         public int researcherId { get; set; }
 

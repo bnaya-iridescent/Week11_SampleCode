@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KIT206_Week9
+namespace Research
 {
-    class Staff : Employee
+    class Staff : Researcher
     {
         public float ThreeYearAverage()
         {

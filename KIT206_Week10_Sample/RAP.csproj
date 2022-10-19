@@ -60,27 +60,20 @@
     </ApplicationDefinition>
     <Compile Include="Position.cs" />
     <Compile Include="Publication.cs" />
+    <Compile Include="PublicationController.cs" />
     <Compile Include="Staff.cs" />
     <Compile Include="Student.cs" />
-    <Compile Include="TrainingSession.cs" />
-    <Page Include="ExampleUserControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="Agency.cs" />
+    <Compile Include="ERDAdapter.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Boss.cs" />
-    <Compile Include="Employee.cs" />
-    <Compile Include="ExampleUserControl.xaml.cs">
-      <DependentUpon>ExampleUserControl.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="ResearcherController.cs" />
+    <Compile Include="Researcher.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

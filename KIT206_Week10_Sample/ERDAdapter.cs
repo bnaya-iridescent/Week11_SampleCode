@@ -5,15 +5,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows; //for generating a MessageBox upon encountering an error
+using Research;
 
-
-namespace KIT206_Week9
+namespace Database
 {
-    abstract class Agency
+    abstract class ERDAdapter
     {
         //If including error reporting within this class (as this sample does) then you'll need a way
         //to control whether the errors are actually shown or silently ignored, since once you have
-        //connected the GUI to the Boss object then the GUI designer will execute its code, which
+        //connected the GUI to the ResearcherController object then the GUI designer will execute its code, which
         //will try to connect to the database to load live data into the GUI at design time.
         private static bool reportingErrors = false;
 
@@ -46,9 +46,9 @@ namespace KIT206_Week9
         }
 
         //For step 2.2 in Week 8 tutorial
-        public static List<Employee> LoadAll()
+        public static List<Researcher> LoadAll()
         {
-            List<Employee> staff = new List<Employee>();
+            List<Researcher> researcherList = new List<Researcher>();
             List<Student> students = new List<Student>();
             List<Staff> staffs = new List<Staff>();
 
@@ -67,28 +67,28 @@ namespace KIT206_Week9
 
                 while (rdr.Read())
                 {
-                    Gender g = new Gender();
+                    EmploymentLevel g = new EmploymentLevel();
                     if (rdr.IsDBNull(7)) {
-                        g = Gender.Student;
+                        g = EmploymentLevel.Student;
                     } else if(rdr.GetString(7) == "A") {
-                        g = Gender.A;
+                        g = EmploymentLevel.A;
                     } else if(rdr.GetString(7) == "B") {
-                        g = Gender.B;
+                        g = EmploymentLevel.B;
                     } else if(rdr.GetString(7) == "C") {
-                        g = Gender.C;
+                        g = EmploymentLevel.C;
                     } else if (rdr.GetString(7) == "D") {
-                        g = Gender.D;
+                        g = EmploymentLevel.D;
                     } else if (rdr.GetString(7) == "E") {
-                        g = Gender.E;
+                        g = EmploymentLevel.E;
                     }
                     //Note that in your assignment you will need to inspect the *type* of the
-                    //employee/researcher before deciding which kind of concrete class to create.
-                    staff.Add(
-                        new Employee { ID = rdr.GetInt32(0), 
+                    //Researcher/researcher before deciding which kind of concrete class to create.
+                    researcherList.Add(
+                        new Researcher { ID = rdr.GetInt32(0), 
                             Name = rdr.GetString(2) + ", " + rdr.GetString(1) + " (" + rdr.GetString(3) + ")" ,
                             Email = rdr.GetString(4),
                             Campus = "School of "+rdr.GetString(6)+", "+ rdr.GetString(5)+" Campus",
-                            Gender = g,
+                            EmploymentLevel = g,
                             Type = rdr.GetString(8),
                             CurrentStart = Convert.ToDateTime(rdr.GetString(10)),
                             UtasStartDate = Convert.ToDateTime(rdr.GetString(9)),
@@ -103,7 +103,7 @@ namespace KIT206_Week9
                         st.Name = rdr.GetString(2) + ", " + rdr.GetString(1) + " (" + rdr.GetString(3) + ")";
                         st.Email = rdr.GetString(4);
                         st.Campus = "School of " + rdr.GetString(6) + ", " + rdr.GetString(5) + " Campus";
-                        st.Gender = g;
+                        st.EmploymentLevel = g;
                         staffs.Add(st);
                     }
                     else if (rdr.GetString(8) == "Student")
@@ -112,7 +112,7 @@ namespace KIT206_Week9
                         st.Name = rdr.GetString(2) + ", " + rdr.GetString(1) + " (" + rdr.GetString(3) + ")";
                         st.Email = rdr.GetString(4);
                         st.Campus = "School of " + rdr.GetString(6) + ", " + rdr.GetString(5) + " Campus";
-                        st.Gender = g;
+                        st.EmploymentLevel = g;
                         students.Add(st);
                     }
                 }
@@ -140,7 +140,7 @@ namespace KIT206_Week9
             }
             catch (MySqlException e)
             {
-                ReportError("loading staff", e);
+                ReportError("loading researcherList", e);
             }
             finally
             {
@@ -154,11 +154,11 @@ namespace KIT206_Week9
                 }
             }
 
-            return staff;
+            return researcherList;
         }
 
         //For step 2.3 in Week 8 tutorial
-        public static List<Publication> LoadTrainingSessions(int id)
+        public static List<Publication> LoadAllPublications(int id)
         {
             List<Publication> work = new List<Publication>();
 

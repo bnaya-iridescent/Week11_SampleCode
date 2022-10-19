@@ -4,23 +4,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KIT206_Week9
+namespace Research
 {
 
-    //As an example, this includes an additional 'gender' called Any that could be used in a GUI drop-down list.
-    //The filtering could then be modified that if Gender.Any is selected that the full list is returned with no filtering performed.
-    public enum Gender { All, Student, A, B, C, D, E };
+    
+    public enum EmploymentLevel { All, Student, A, B, C, D, E };
 
     /// <summary>
     /// A class baring a striking resemblance to a university researcher
     /// </summary>
-    public class Employee
+    public class Researcher
     {
         public int ID { get; set; }
         public string Name { get; set; }
         public string GivenName { get; set; }
         public string FamilyName { get; set; }
-        public Gender Gender { get; set; }
+        public EmploymentLevel EmploymentLevel { get; set; }
         public string Campus { get; set; }
         public string Email { get; set; }
         public string Level { get; set; }
@@ -40,7 +39,7 @@ namespace KIT206_Week9
 
         public DateTime CurrentStart { get; set; }
 
-        public List<Publication> Skills { get; set; }
+        public List<Publication> PublicationList { get; set; }
 
         public Position GetCurrentJob()
         {
@@ -86,28 +85,21 @@ namespace KIT206_Week9
             return 1;
         }
 
-        public int SkillCount
+        public int PublicationCount
         {
-            get { return Skills == null ? 0 : Skills.Count(); }
-        }
-
-
-        //The SkillCount out of 10, expressed as a percentage
-        public double SkillPercent
-        {
-            //This is equivalent to SkillCount / 10.0 * 100
-            get { return SkillCount * 10.0; }
+            get { return PublicationList == null ? 0 : PublicationList.Count(); }
         }
 
         //This is likely the solution you will have devised
-        public DateTime MostRecentTraining
+        //public DateTime MostRecentPublication
+        public DateTime MostRecentPublication
         {
             get
             {
-                var skillDates = from Publication s in Skills
-                                 orderby s.available descending
+                var recent = from Publication s in PublicationList
+                             orderby s.available descending
                                  select s.available;
-                return skillDates.First();
+                return recent.First();
             }
         }
         

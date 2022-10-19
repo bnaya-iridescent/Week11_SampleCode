@@ -3,17 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Control;
 
-namespace KIT206_Week9
+namespace Research
 {
-    class Student : Employee
+    class Student : Researcher
     {
         public string degree { get; set; }
         public int supervisorId { get; set; }
 
         public Staff GetSupervisor()
         {
-            Boss b = new Boss();
+            ResearcherController b = new ResearcherController();
             Staff supervisor = b.GetStaff(supervisorId);
             return supervisor;
         }
