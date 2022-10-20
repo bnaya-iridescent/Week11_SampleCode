@@ -47,6 +47,39 @@ namespace Research
             }
         }
 
+        public double? Performance { 
+            get
+            {
+                if (Type == "Staff")
+                {
+                    double expectedPublication = 1;
+                    switch (EmploymentLevel)
+                    {
+                        case EmploymentLevel.A:
+                            expectedPublication = 0.5;
+                            break;
+                        case EmploymentLevel.B:
+                            expectedPublication = 1;
+                            break;
+                        case EmploymentLevel.C:
+                            expectedPublication = 2;
+                            break;
+                        case EmploymentLevel.D:
+                            expectedPublication = 3.2;
+                            break;
+                        case EmploymentLevel.E:
+                            expectedPublication = 4;
+                            break;
+                        default:
+                            break;
+                    }
+                    return ThreeYearAverage / expectedPublication * 100;
+                }
+                return null;
+
+            }
+        }
+
         public string Degree { get; set; }
 
         public DateTime UtasStartDate { get; set; }
@@ -61,9 +94,33 @@ namespace Research
             return position;
         }
 
-        public string CurrentJobTitle()
-        {
-            return "test";
+        public string CurrentJobTitle
+        { 
+            get
+            {
+                string jobtitle = "Student";
+                switch (EmploymentLevel)
+                {
+                    case EmploymentLevel.A:
+                        jobtitle = "Postdoc";
+                        break;
+                    case EmploymentLevel.B:
+                        jobtitle = "Lecturer";
+                        break;
+                    case EmploymentLevel.C:
+                        jobtitle = "Senior Lecturer";
+                        break;
+                    case EmploymentLevel.D:
+                        jobtitle = "Associate Professor";
+                        break;
+                    case EmploymentLevel.E:
+                        jobtitle = "Professor";
+                        break;
+                    default:
+                        break;
+                }
+                return jobtitle;
+            }
         }
 
         public DateTime CurrentJobStart()
@@ -104,20 +161,25 @@ namespace Research
             get { return PublicationList == null ? 0 : PublicationList.Count(); }
         }
 
-        public double ThreeYearAverage
+        public double? ThreeYearAverage
         {
             get { return ThreeYearAverageCalculate(); }
         }
 
-        public double ThreeYearAverageCalculate()
+        public double? ThreeYearAverageCalculate()
         {
-            double val = 0;
-            int currentYear = DateTime.Today.Year;
-            var lastThreeYearPublications = from Publication s in PublicationList
-                                               where currentYear - s.year <= 3
-                                               select s;
-            val = (double)lastThreeYearPublications.Count() / 3;
-            return Math.Round(val, 2);
+            if (Type == "Staff")
+            {
+                double val = 0;
+                int currentYear = DateTime.Today.Year;
+                var lastThreeYearPublications = from Publication s in PublicationList
+                                                where currentYear - s.year <= 3
+                                                select s;
+                val = (double)lastThreeYearPublications.Count() / 3;
+                return Math.Round(val, 2);
+            }
+            return null;
+            
         }
         
         public override string ToString()

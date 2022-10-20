@@ -34,8 +34,8 @@
                 <Label Content="{Binding Path=UtasStartDate}"></Label>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <Label Content="Current Job Position:"></Label>
-                <Label Content="{Binding Path=EmploymentLevel}"></Label>
+                <Label Content="Current Job :"></Label>
+                <Label Content="{Binding Path=CurrentJobTitle}"></Label>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <Label Content="Current Job Since:"></Label>
@@ -43,7 +43,7 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <Label Content="Tenure:"></Label>
-                <Label Content="{Binding Path=TenureCount}"></Label>
+                <Label Content="{Binding Path=TenureCount}" ContentStringFormat=" {0} Years "></Label>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <Label Content="Number of Publications:"></Label>
@@ -55,7 +55,7 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <Label Content="Performance:"></Label>
-                <Label Content="{Binding Path=Performance}"></Label>
+                <Label Content="{Binding Path=Performance}" ContentStringFormat="{}{0:0.00}%"></Label>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <Label Content="Degree:"></Label>
@@ -65,19 +65,6 @@
                 <Label Content="Supervisor:"></Label>
                 <Label Content="{Binding Path=Supervisor}"></Label>
             </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <!-- Example with no additional label and and the 'label' added as part of the string format -->
-                <Label Content="{Binding Path=MostRecentPublication}" ContentStringFormat="Most Recent: {0:dd/MM/yyyy}"></Label>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <!-- Example with no additional Label and and the 'label' added as part of the string format -->
-                <Label Content="{Binding Path=MostRecentPublication}" ContentStringFormat="Most Recent (no Label): {0:dd/MM/yyyy}"></Label>
-            </StackPanel>
-            <!-- Example of outputting long text; you may find this useful
-                for some of the data you need to display in the assignment -->
-            <TextBlock TextWrapping="Wrap">
-                <TextBlock.Text>Here is some long text. Note how it wraps. Here is some long text. Note how it wraps.</TextBlock.Text>
-            </TextBlock>
         </StackPanel>
         <Label Content="Enter text to Search By Name" HorizontalAlignment="Left" Margin="119,-60,0,0" VerticalAlignment="Top" Width="171" Grid.ColumnSpan="3" Height="26"/>
         <Label Content="Select Level to Filter" HorizontalAlignment="Left" Margin="0,-60,0,0" VerticalAlignment="Top" Width="171" Grid.ColumnSpan="2" Height="26"/>
