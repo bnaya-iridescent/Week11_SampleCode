@@ -186,5 +186,17 @@ namespace Research
         {
             return Name;
         }
+
+        public int NumberOfSupervisions
+        {
+            get
+            {
+                List<Researcher> allResearchers = ERDAdapter.LoadAll();
+                var supervisedList = from Researcher s in allResearchers
+                                     where s.SupervisorId == ID
+                                     select s;
+                return supervisedList.Count();
+            }
+        }
     }
 }

@@ -33,16 +33,12 @@ namespace View
         {
             InitializeComponent();
             ResearcherController = (ResearcherController)(Application.Current.FindResource(STAFF_LIST_KEY) as ObjectDataProvider).ObjectInstance;
-            //MyList.Items.Filter = NameFilter;
         }
 
         private void sampleListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (e.AddedItems.Count > 0)
             {
-                //After Task 4 done, this is not really needed
-                //MessageBox.Show("The selected item is: " + e.AddedItems[0]);
-                //Part of task 4
                 DetailsPanel.DataContext = e.AddedItems[0];         
             }
         }
@@ -61,12 +57,8 @@ namespace View
         }
 
         //Part of task 3.4
-        private void btnDeleteOne_Click(object sender, RoutedEventArgs e)
+        private void button_showPublications(object sender, RoutedEventArgs e)
         {
-
-            DetailsPanel.DataContext = new { Name = "Fred", SkillCount = 5 };
-
-
             if (ResearcherController.VisibleWorkers.Count > 0)
             {
                 Researcher theRemoved = ResearcherController.VisibleWorkers[0]; //this is just to keep the GUI tidy (after Task 4 implemented)
