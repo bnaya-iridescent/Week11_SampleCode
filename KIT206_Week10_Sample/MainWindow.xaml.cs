@@ -12,9 +12,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using KIT206_Week9;
+using Control;
+using Research;
+using Database;
 
-namespace KIT206_Week10_Sample
+namespace View
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -24,13 +26,13 @@ namespace KIT206_Week10_Sample
         //Part of task 3.4. If a resource really does need to be shared across many different views
         //then consider putting this code (and that for 3.4 below) into the App class, with a public
         //property to access the shared resource.
-        private const string STAFF_LIST_KEY = "staffList";
-        private Boss boss;
+        private const string STAFF_LIST_KEY = "researcherList";
+        private ResearcherController ResearcherController;
 
         public MainWindow()
         {
             InitializeComponent();
-            boss = (Boss)(Application.Current.FindResource(STAFF_LIST_KEY) as ObjectDataProvider).ObjectInstance;
+            ResearcherController = (ResearcherController)(Application.Current.FindResource(STAFF_LIST_KEY) as ObjectDataProvider).ObjectInstance;
             //MyList.Items.Filter = NameFilter;
         }
 
@@ -65,10 +67,10 @@ namespace KIT206_Week10_Sample
             DetailsPanel.DataContext = new { Name = "Fred", SkillCount = 5 };
 
 
-            if (boss.VisibleWorkers.Count > 0)
+            if (ResearcherController.VisibleWorkers.Count > 0)
             {
-                Employee theRemoved = boss.VisibleWorkers[0]; //this is just to keep the GUI tidy (after Task 4 implemented)
-                boss.VisibleWorkers.RemoveAt(0); //the actual removal step
+                Researcher theRemoved = ResearcherController.VisibleWorkers[0]; //this is just to keep the GUI tidy (after Task 4 implemented)
+                ResearcherController.VisibleWorkers.RemoveAt(0); //the actual removal step
                 //completing keeping the GUI tidy (something similar may be required in the assignment)
                 if (DetailsPanel.DataContext == theRemoved)
                 {
@@ -82,44 +84,23 @@ namespace KIT206_Week10_Sample
 
         }
 
+        // when level is selected, call filter from controller class
         private void FilterList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //MessageBox.Show("Dropdown list used to select: " + e.AddedItems[0]);
-            boss.Filter(Agency.ParseEnum<Gender>(FilterListLevel.SelectedValue.ToString()));
-            /*if (selectedLevel == "A")
-            {
-                MyList.Items.Filter = LevelAFilter;
-            }
-            else if (selectedLevel != null && selectedLevel != "All")
-            {
-                MyList.Items.Filter = LevelFilter;
-            }
-            else if (selectedLevel == "All")
-            {
-                MyList.Items.Filter = null;
-            }*/
+            ResearcherController.FilterLevel(ERDAdapter.ParseEnum<EmploymentLevel>(FilterListLevel.SelectedValue.ToString()));
 
         }
 
-        private bool LevelFilter(object obj)
+        // when name is entered to search, call filter from controller class
+        private void FilterByName_TextChanged(object sender, SelectionChangedEventArgs e)
         {
-            //MessageBox.Show("Dropdown list used to select: " + e.AddedItems[0]);
-            var Filterobj = obj as Employee;
-            //MessageBox.Show(FilterListLevel.Text + "selected");
-            return Filterobj.Gender.ToString() == FilterListLevel.Text;
-        }
+            ResearcherController.FilterName(FilterByName.ToString());
 
-        private bool LevelAFilter(object obj)
-        {
-            //MessageBox.Show("Dropdown list used to select: " + e.AddedItems[0]);
-            var Filterobj = obj as Employee;
-            //MessageBox.Show(FilterListLevel.Text + "selected");
-            return Filterobj.Gender.ToString() == "A";
         }
 
         private bool NameFilter(object obj)
         {
-            var Filterobj = obj as Employee;
+            var Filterobj = obj as Researcher;
             return Filterobj.Name.ToLower().Contains(FilterByName.Text.ToLower());
         }
 

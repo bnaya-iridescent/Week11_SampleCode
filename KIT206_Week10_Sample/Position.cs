@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KIT206_Week9
+namespace Research
 {
     public class Position
     {
@@ -24,5 +24,4 @@ namespace KIT206_Week9
         }
     }
 
-    public enum EmploymentLevel { Student, A, B, C, D, E }
 }
