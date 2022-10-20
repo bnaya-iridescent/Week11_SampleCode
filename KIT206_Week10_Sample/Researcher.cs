@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Control;
+using Database;
 
 namespace Research
 {
@@ -30,7 +32,19 @@ namespace Research
 
         public string Supervisor
         {
-            get { return Name; }
+            get 
+            {
+                string supName = "No Supervisor";
+                if (SupervisorId != 0)
+                {
+                    List<Researcher> allResearchers = ERDAdapter.LoadAll();
+                    var supervisor = from Researcher s in allResearchers
+                                     where s.ID == SupervisorId
+                                     select s.Name;
+                    supName = supervisor.First();
+                }
+                return supName;
+            }
         }
 
         public string Degree { get; set; }
@@ -104,19 +118,6 @@ namespace Research
                                                select s;
             val = (double)lastThreeYearPublications.Count() / 3;
             return Math.Round(val, 2);
-        }
-
-        //This is likely the solution you will have devised
-        //public DateTime MostRecentPublication
-        public DateTime MostRecentPublication
-        {
-            get
-            {
-                var recent = from Publication s in PublicationList
-                             orderby s.available descending
-                                 select s.available;
-                return recent.First();
-            }
         }
         
         public override string ToString()
