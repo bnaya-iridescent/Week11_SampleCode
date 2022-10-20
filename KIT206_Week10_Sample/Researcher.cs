@@ -90,6 +90,22 @@ namespace Research
             get { return PublicationList == null ? 0 : PublicationList.Count(); }
         }
 
+        public double ThreeYearAverage
+        {
+            get { return ThreeYearAverageCalculate(); }
+        }
+
+        public double ThreeYearAverageCalculate()
+        {
+            double val = 0;
+            int currentYear = DateTime.Today.Year;
+            var lastThreeYearPublications = from Publication s in PublicationList
+                                               where currentYear - s.year <= 3
+                                               select s;
+            val = (double)lastThreeYearPublications.Count() / 3;
+            return Math.Round(val, 2);
+        }
+
         //This is likely the solution you will have devised
         //public DateTime MostRecentPublication
         public DateTime MostRecentPublication
@@ -105,7 +121,6 @@ namespace Research
         
         public override string ToString()
         {
-            //For the purposes of this week's demonstration this returns only the name
             return Name;
         }
     }

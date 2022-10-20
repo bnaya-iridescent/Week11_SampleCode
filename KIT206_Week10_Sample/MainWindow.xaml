@@ -51,7 +51,7 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <Label Content="3-year Average:"></Label>
-                <Label Content="{Binding Path=MostRecentPublication}"></Label>
+                <Label Content="{Binding Path=ThreeYearAverage}"></Label>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <Label Content="Performance:"></Label>
