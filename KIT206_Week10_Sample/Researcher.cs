@@ -12,6 +12,8 @@ namespace Research
     
     public enum EmploymentLevel { All, Student, A, B, C, D, E };
 
+    public enum PerformanceLevel { Poor, Meeting_Minimum, Below_Expectations, Star_Performers };
+
     /// <summary>
     /// A class baring a striking resemblance to a university researcher
     /// </summary>
@@ -22,6 +24,9 @@ namespace Research
         public string GivenName { get; set; }
         public string FamilyName { get; set; }
         public EmploymentLevel EmploymentLevel { get; set; }
+        
+        public PerformanceLevel PerformanceLevel { get; set; }
+
         public string Campus { get; set; }
         public string Email { get; set; }
         public string Level { get; set; }

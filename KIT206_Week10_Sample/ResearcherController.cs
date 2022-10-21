@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using Research;
 using Database;
 
@@ -17,10 +18,6 @@ namespace Control
         //maintaining two collections, a master and a 'viewable' one (which is the 'view model'
         //in Microsoft's Model-View-ViewModel approach to Model-View-Controller)
         private List<Researcher> researcherList;
-        
-        private List<Staff> staffs;
-        
-        private List<Student> students;
         public List<Researcher> Workers { get { return researcherList; } set { } }
        
         private ObservableCollection<Researcher> viewableStaff;
@@ -41,6 +38,25 @@ namespace Control
         public ObservableCollection<Researcher> GetViewableList()
         {
             return VisibleWorkers;
+        }
+
+        internal void CopyEmailsOfViewableList()
+        {
+            String emails = "";
+            foreach (Researcher e in viewableStaff)
+            {
+                emails = emails + e.Email + ";";
+            }
+            if (emails != "")
+            {
+                Clipboard.SetText(emails);
+                MessageBox.Show("Emails Copied");
+            }
+            else
+            {
+                MessageBox.Show("No email to copy");
+            }
+            
         }
 
         //Filter based on EmploymentLevel
@@ -64,6 +80,47 @@ namespace Control
                 selected.ToList().ForEach(viewableStaff.Add);
             }
             
+        }
+
+        public void FilterBasedOnPerformance(PerformanceLevel level)
+        {
+            if (level == PerformanceLevel.Poor)
+            {
+                var selected = from Researcher e in researcherList
+                               where e.Performance <= 70
+                               select e;
+                viewableStaff.Clear();
+                //Converts the result of the LINQ expression to a List and then calls viewableStaff.Add with each element of that list in turn
+                selected.ToList().ForEach(viewableStaff.Add);
+            }
+            else if (level == PerformanceLevel.Below_Expectations)
+            {
+                var selected = from Researcher e in researcherList
+                               where e.Performance > 70 && e.Performance < 110
+                               select e;
+                viewableStaff.Clear();
+                //Converts the result of the LINQ expression to a List and then calls viewableStaff.Add with each element of that list in turn
+                selected.ToList().ForEach(viewableStaff.Add);
+            }
+            else if (level == PerformanceLevel.Meeting_Minimum)
+            {
+                var selected = from Researcher e in researcherList
+                               where e.Performance >= 110 && e.Performance <200
+                               select e;
+                viewableStaff.Clear();
+                //Converts the result of the LINQ expression to a List and then calls viewableStaff.Add with each element of that list in turn
+                selected.ToList().ForEach(viewableStaff.Add);
+            }
+            else if (level == PerformanceLevel.Star_Performers)
+            {
+                var selected = from Researcher e in researcherList
+                               where e.Performance >= 200
+                               select e;
+                viewableStaff.Clear();
+                //Converts the result of the LINQ expression to a List and then calls viewableStaff.Add with each element of that list in turn
+                selected.ToList().ForEach(viewableStaff.Add);
+            }
+
         }
 
         //Filter based on Name

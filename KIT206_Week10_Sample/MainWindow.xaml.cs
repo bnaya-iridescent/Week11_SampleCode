@@ -108,7 +108,10 @@ namespace View
             }
         }
 
-
-
+        private void OpenWindow(object sender, RoutedEventArgs e)
+        {
+            Report report = new Report();
+            report.Show();
+        }
     }
 }
