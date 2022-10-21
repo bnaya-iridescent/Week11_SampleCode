@@ -62,7 +62,7 @@ namespace Database
             {
                 conn.Open();
 
-                MySqlCommand cmd = new MySqlCommand("select id, given_name, family_name, title, email, campus, unit, level, type, utas_start, current_start, degree, supervisor_id from researcher order by family_name", conn);
+                MySqlCommand cmd = new MySqlCommand("select id, given_name, family_name, title, email, campus, unit, level, type, utas_start, current_start, degree, supervisor_id, photo from researcher order by family_name", conn);
                 rdr = cmd.ExecuteReader();
 
                 while (rdr.Read())
@@ -93,8 +93,8 @@ namespace Database
                             CurrentStart = Convert.ToDateTime(rdr.GetString(10)),
                             UtasStartDate = Convert.ToDateTime(rdr.GetString(9)),
                             Degree = rdr.IsDBNull(11)?"-":rdr.GetString(11),
-                            SupervisorId = rdr.IsDBNull(11)?0:rdr.GetInt32(12)
-
+                            SupervisorId = rdr.IsDBNull(12)?0:rdr.GetInt32(12),
+                            Photo = rdr.GetString(13)
                         });
 
                     if (rdr.GetString(8) =="Staff")

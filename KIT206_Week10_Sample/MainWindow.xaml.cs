@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Web;
 using Control;
 using Research;
 using Database;
@@ -33,42 +34,34 @@ namespace View
         {
             InitializeComponent();
             ResearcherController = (ResearcherController)(Application.Current.FindResource(STAFF_LIST_KEY) as ObjectDataProvider).ObjectInstance;
+            
+
+        }
+
+        private void loadimage(string imagePath)
+        {
+            BitmapImage bitmap = new BitmapImage();
+            bitmap.BeginInit();
+            bitmap.UriSource = new Uri(@"C:\506Project\KIT506_Week11_Sample (2)\KIT506_Week11_Sample\KIT206_Week10_Sample\photos\"+ imagePath + ".jpg");
+            bitmap.EndInit();
+            researcherImage.Source = bitmap;
         }
 
         private void sampleListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (e.AddedItems.Count > 0)
             {
-                DetailsPanel.DataContext = e.AddedItems[0];         
+                DetailsPanel.DataContext = e.AddedItems[0];
+                Researcher r = (Researcher)e.AddedItems[0];
+                loadimage(Convert.ToString(r.ID));
             }
-        }
 
-        private void sampleButton_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("The text entered is: " + FilterByName.Text);
-        }
-
-        private void sampleTextBox_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Enter)
-            {
-                sampleButton_Click(sender, e);
-            }
         }
 
         //Part of task 3.4
         private void button_showPublications(object sender, RoutedEventArgs e)
         {
-            if (ResearcherController.VisibleWorkers.Count > 0)
-            {
-                Researcher theRemoved = ResearcherController.VisibleWorkers[0]; //this is just to keep the GUI tidy (after Task 4 implemented)
-                ResearcherController.VisibleWorkers.RemoveAt(0); //the actual removal step
-                //completing keeping the GUI tidy (something similar may be required in the assignment)
-                if (DetailsPanel.DataContext == theRemoved)
-                {
-                    DetailsPanel.DataContext = null;
-                }
-            }
+            
         }
 
         private void ExampleUserControl_Loaded(object sender, RoutedEventArgs e)

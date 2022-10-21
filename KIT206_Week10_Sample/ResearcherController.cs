@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using Research;
 using Database;
+using System.Web;
 
 namespace Control
 {
@@ -144,6 +145,11 @@ namespace Control
         {
             Staff supervisor = researcherList.Where(s => s.ID == supervisorId) as Staff;
             return supervisor;
+        }
+
+        public String encodeURL (string str)
+        {
+            return HttpUtility.UrlEncode(str);
         }
     }
 }
